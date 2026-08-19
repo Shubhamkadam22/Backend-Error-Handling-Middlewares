@@ -34,10 +34,23 @@ app.get('/err', (req, res, next) => {
     }
 }); 
 
+
+app.get("/admin", (res, req) => {
+    throw new ExpressError( 403 , " Access to admin is forbidden")
+})
+
+
 // 404 Route Handler for undefined routes
 app.use((req, res) => {
     res.status(404).send('Page not found');
 }); 
+
+
+
+
+
+
+
 
 // Global Error-Handling Middleware (MUST have 4 arguments)
 app.use((err, req, res, next) => {
