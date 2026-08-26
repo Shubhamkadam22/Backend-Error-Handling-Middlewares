@@ -34,6 +34,21 @@ app.get('/err', (req, res, next) => {
     }
 }); 
 
+// Centralized Error Handler
+app.use((err, req, res, next) => {
+  // Fallback values if status or message aren't set
+  const { status = 500, message = 'Something went wrong!' } = err;
+
+  res.status(status).json({
+    success: false,
+    status,
+    message,
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
 
 app.get("/admin", (res, req) => {
     throw new ExpressError( 403 , " Access to admin is forbidden")
